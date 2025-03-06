@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>勤務時間管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> -->
+    <style>
+        body {
+            background-color: #d89715; /* オレンジ系の柔らかい背景色 */
+        }
+        .container {
+            margin-top: 20px;
+        }
+        #calendar {
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-orange">勤務時間管理</h1>
+        <div id="calendar"></div>
+    </div>
+
+    <div class="container mt-3">
+        <h3>休日設定</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="customHoliday" class="form-label">休日を選択</label>
+                <input type="date" id="customHoliday" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <button id="addHolidayBtn" class="btn btn-warning mt-4">追加</button>
+            </div>
+        </div>
+        <ul id="holidayList" class="list-group mt-3"></ul>
+    </div>
+    
+
+    <!-- 勤務時間入力モーダル -->
+    <div class="modal fade" id="workTimeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">勤務時間を入力</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="selectedDate"> <!-- 選択した日付を保存 -->
+                    <div class="mb-3">
+                        <label for="startTime" class="form-label">開始時間</label>
+                        <input type="time" id="startTime" class="form-control" value="09:00">
+                    </div>
+                    <div class="mb-3">
+                        <label for="endTime" class="form-label">終了時間</label>
+                        <input type="time" id="endTime" class="form-control" value="18:00">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+                    <button type="button" class="btn btn-primary" id="saveWorkTime">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <button id="exportExcel" class="btn btn-success">Excelにエクスポート</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html>
